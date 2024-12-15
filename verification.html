@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Verification</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f3f4f6;
+        font-family: "Arial", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      .verify-container {
+        background: #ffffff;
+        padding: 40px 30px;
+        border-radius: 12px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 450px;
+        text-align: center;
+      }
+
+      h4 {
+        font-weight: 600;
+        color: #333333;
+        margin-bottom: 20px;
+      }
+
+      p {
+        color: #666666;
+        font-size: 15px;
+        margin-bottom: 25px;
+      }
+
+      .code-input {
+        width: 50px;
+        height: 50px;
+        margin: 0 8px;
+        border: 2px solid #ced4da;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        outline: none;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .code-input:focus {
+        border-color: #6c63ff;
+        box-shadow: 0 0 5px #b8b3ff;
+      }
+
+      .btn-verify {
+        background-color: #6c63ff;
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 0;
+        margin-top: 15px;
+        width: 100%;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-verify:hover {
+        background-color: #554bd1;
+      }
+
+      .extra-links a {
+        font-size: 14px;
+        color: #6c63ff;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .extra-links a:hover {
+        color: #554bd1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="verify-container">
+      <h4>Verify Your Account</h4>
+      <p>
+        We emailed you a four-digit code to
+        <strong>xyz@gmail.com</strong>.<br />
+        Enter the code below to confirm your email address.
+      </p>
+
+      <!-- Input Boxes for Verification Code -->
+      <div class="d-flex justify-content-center mb-4">
+        <input type="text" maxlength="1" class="code-input" autofocus />
+        <input type="text" maxlength="1" class="code-input" />
+        <input type="text" maxlength="1" class="code-input" />
+        <input type="text" maxlength="1" class="code-input" />
+      </div>
+
+      <!-- Verify Button -->
+      <button class="btn btn-verify" onclick="window.location.href='menu.html'">
+        Verify
+      </button>
+
+      <!-- Extra Links -->
+      <div class="extra-links mt-3">
+        <p>Didn't receive any code? <a href="#">Resend</a></p>
+        <p><a href="#">Change Email Address</a></p>
+      </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Details</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .search-bar {
+        width: 300px;
+      }
+      .icon {
+        font-size: 1.5rem;
+        margin-left: 15px;
+      }
+      .cart-icon {
+        color: #e74c3c;
+      }
+      .notification-icon {
+        color: #000;
+      }
+      .profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      .video-placeholder {
+        width: 100%;
+        height: 250px;
+        background-color: #dcdcdc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: #555;
+      }
+      .register-btn {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .course-info {
+        font-size: 0.9rem;
+      }
+      .course-list {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+      .course-item {
+        width: 150px;
+        text-align: center;
+      }
+      .course-item img {
+        width: 100%;
+        border-radius: 5px;
+      }
+      #resultsChart {
+        max-width: 300px;
+        margin: 0 auto;
+      }
+      .correct-answer {
+        color: green;
+      }
+      .wrong-answer {
+        color: red;
+      }
+      .video-container {
+        width: 80%;
+        max-width: 800px;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      video {
+        width: 100%;
+        display: block;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background: #222;
+        color: #fff;
+      }
+
+      .controls button,
+      .controls input[type="range"] {
+        margin-right: 10px;
+        background: #444;
+        border: none;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .controls button:hover,
+      .controls input[type="range"]:hover {
+        background: #555;
+      }
+
+      .controls input[type="range"] {
+        flex: 1;
+        cursor: pointer;
+      }
+      footer {
+        background-color: #000;
+        color: #fff;
+        padding: 2rem 5vw;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        font-size: 0.875rem;
+      }
+      .footer-section {
+        margin: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+      }
+      .footer-section a {
+        color: #fff;
+        text-decoration: none;
+      }
+      .footer-section a:hover {
+        text-decoration: underline;
+      }
+      .footer-right {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+      }
+      .footer-language {
+        display: flex;
+        align-items: center;
+        border: 1px solid #fff;
+        padding: 0.3125rem 0.625rem;
+        border-radius: 0.3125rem;
+        width: fit-content;
+        cursor: pointer;
+      }
+      .footer-language img {
+        width: 1rem;
+        margin-right: 0.5rem;
+      }
+      .footer-bottom {
+        margin-top: 1.25rem;
+        font-size: 0.75rem;
+        text-align: center;
+        width: 100%;
+      }
+
+      @media (max-width: 1024px) {
+        footer {
+          flex-direction: column;
+          padding: 2rem 4vw;
+          text-align: center;
+        }
+        .footer-section,
+        .footer-right {
+          text-align: center;
+        }
+        .footer-right {
+          margin-top: 1.25rem;
+        }
+        .footer-language {
+          margin: 0 auto;
+        }
+      }
+
+      @media (max-width: 768px) {
+        footer {
+          padding: 2rem 3vw;
+        }
+      }
+
+      @media (max-width: 480px) {
+        footer {
+          font-size: 0.75rem;
+          padding: 1.5rem 2vw;
+        }
+        .footer-section,
+        .footer-right {
+          margin: 0.5rem 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-light bg-light px-3">
+      <div class="container-fluid d-flex align-items-center">
+        <span class="navbar-brand mb-0 h1">Learners</span>
+        <div class="d-flex align-items-center">
+          <input
+            type="text"
+            class="form-control search-bar"
+            placeholder="Search"
+          />
+          <i class="icon fas fa-search"></i>
+        </div>
+        <div class="d-flex align-items-center">
+          <i class="icon cart-icon fa fa-shopping-cart"></i>
+          <i class="icon notification-icon fa fa-bell"></i>
+          <img
+            src="https://via.placeholder.com/40"
+            alt="Profile"
+            class="profile-img ms-2"
+          />
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Section -->
+    <div class="container mt-4">
+      <h3 class="text-center">Courses to get you started</h3>
+      <div class="d-flex justify-content-center my-3">
+        <button class="btn btn-outline-secondary me-2">Most Popular</button>
+        <button class="btn btn-outline-secondary me-2">New</button>
+        <button class="btn btn-outline-secondary">Trending</button>
+      </div>
+
+      <div class="row">
+        <div class="video-container">
+          <video id="video" src="/ass/259.mp4" preload="metadata"></video>
+          <div class="controls">
+            <button id="playPause">Play</button>
+            <input id="progress" type="range" min="0" value="0" step="0.1" />
+            <button id="mute">Mute</button>
+            <input
+              id="volume"
+              type="range"
+              min="0"
+              max="1"
+              step="0.1"
+              value="1"
+            />
+            <button id="fullscreen">Fullscreen</button>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h5 class="mt-3">Python Training</h5>
+          <ul class="course-info">
+            <li>
+              Master the fundamentals of Python programming, including
+              variables, data types, and syntax
+            </li>
+            <li>
+              Develop the skills to write and run Python programs using an IDE
+              or text editor
+            </li>
+            <li>
+              Gain proficiency in control flow, decision-making, and loops in
+              Python
+            </li>
+            <li>
+              Learn essential data structures and algorithms in Python for
+              problem-solving
+            </li>
+          </ul>
+          <div class="register-btn">
+            <button class="btn btn-primary">Buy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <h6>Free courses</h6>
+          <ul class="course-info">
+            <li>Online video content</li>
+            <li>Certificate of completion</li>
+            <li>Instructor Q&A</li>
+            <li>Instructor direct message</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h6>Paid courses</h6>
+          <ul class="course-info">
+            <li>Online video content</li>
+            <li>Certificate of completion</li>
+            <li>Instructor Q&A</li>
+            <li>Instructor direct message</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="course-list">
+        <div class="course-item">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS3WjCVZMEj4Cd7vhj6_vymDT2D40IrsoYLQ&s"
+            alt="Python"
+          />
+          <p>Python Training</p>
+          <button class="btn btn-secondary btn-sm">Buy</button>
+        </div>
+        <div class="course-item">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPFk06CHgnVeBBzluUVjgR5PsCT3UAuKJ2dQ&s"
+            alt="Java"
+          />
+          <p>Java Basics</p>
+          <button class="btn btn-secondary btn-sm">Buy</button>
+        </div>
+        <div class="course-item">
+          <img
+            src="https://media.licdn.com/dms/image/v2/D5612AQHyLFkv9YBcGA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1715058774193?e=2147483647&v=beta&t=7yqv62DbvJWPvycGiDX4FGb79GOPsVB_dreB-SHh36E"
+            alt="Web Dev"
+          />
+          <p>Web Development</p>
+          <button class="btn btn-secondary btn-sm">Buy</button>
+        </div>
+      </div>
+
+      <!-- Self Test Section -->
+      <div class="mt-5">
+        <h3 class="text-center">Self Test</h3>
+        <div id="quiz-container">
+          <!-- Questions will be rendered here -->
+        </div>
+        <div class="text-center mt-3">
+          <button class="btn btn-primary" onclick="submitQuiz()">Submit</button>
+        </div>
+        <div id="results-container" class="mt-4" style="display: none">
+          <h5>Marks:</h5>
+          <p id="score">Correct: 0, Incorrect: 0, Skip: 0</p>
+          <canvas id="resultsChart"></canvas>
+        </div>
+      </div>
+      <div class="page1_fotter">
+        <footer>
+          <div class="footer-section">
+            <h3>Learner</h3>
+            <a href="#">Learner Business</a>
+            <a href="#">Teach on Learner</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact Us</a>
+          </div>
+          <div class="footer-section">
+            <a href="#">Get the App</a>
+            <a href="#">Careers</a>
+            <a href="#">Investors</a>
+            <a href="#">Help and Support</a>
+          </div>
+          <div class="footer-section">
+            <a href="#">Report</a>
+            <a href="#">Terms</a>
+            <a href="#">Privacy and Policy</a>
+          </div>
+          <div class="footer-right">
+            <div class="footer-language">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/44/44638.png"
+                alt="Globe Icon"
+              />
+              <span>English</span>
+            </div>
+            <div class="footer-bottom">&copy;2024 learner.Inc</div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const questions = [
+        {
+          question: "What does HTML stand for?",
+          options: [
+            "Hyper Text Markup Language",
+            "Hyperlinks and Text Markup Language",
+            "Home Tool Markup Language",
+            "High Tech Markup Language",
+          ],
+          answer: 0,
+        },
+        {
+          question:
+            "Which of the following is not a programming language commonly used in web development?",
+          options: ["Python", "JavaScript", "Ruby", "SQL"],
+          answer: 3,
+        },
+        {
+          question: "What is the purpose of CSS in web development?",
+          options: [
+            "To add interactivity to web pages",
+            "To define the structure of a web page",
+            "To style the presentation of a web page",
+            "To handle server-side processing",
+          ],
+          answer: 2,
+        },
+      ];
+
+      function loadQuiz() {
+        const container = document.getElementById("quiz-container");
+        questions.forEach((q, index) => {
+          const questionDiv = document.createElement("div");
+          questionDiv.className = "mb-3";
+          questionDiv.innerHTML = `
+                    <p><strong>${index + 1}. ${q.question}</strong></p>
+                    ${q.options
+                      .map(
+                        (option, i) => `
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="question${index}" id="q${index}o${i}" value="${i}">
+                            <label class="form-check-label" for="q${index}o${i}" id="label-q${index}o${i}">${option}</label>
+                        </div>
+                    `
+                      )
+                      .join("")}
+                `;
+          container.appendChild(questionDiv);
+        });
+      }
+
+      function submitQuiz() {
+        let correct = 0;
+        let incorrect = 0;
+        let skip = 0;
+
+        questions.forEach((q, index) => {
+          const selectedOption = document.querySelector(
+            `input[name="question${index}"]:checked`
+          );
+
+          if (selectedOption) {
+            const selectedLabel = document.getElementById(
+              `label-q${index}o${selectedOption.value}`
+            );
+            if (parseInt(selectedOption.value) === q.answer) {
+              correct++;
+              selectedLabel.classList.add("correct-answer");
+            } else {
+              incorrect++;
+              selectedLabel.classList.add("wrong-answer");
+            }
+          } else {
+            skip++;
+          }
+        });
+
+        document.getElementById(
+          "score"
+        ).textContent = `Correct: ${correct}, Incorrect: ${incorrect}, Skip: ${skip}`;
+        document.getElementById("results-container").style.display = "block";
+
+        const ctx = document.getElementById("resultsChart").getContext("2d");
+        if (window.resultsChart) {
+          window.resultsChart.destroy();
+        }
+        window.resultsChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: ["Correct", "Incorrect", "Skip"],
+            datasets: [
+              {
+                data: [correct, incorrect, skip],
+                backgroundColor: ["#28a745", "#dc3545", "#ffc107"],
+              },
+            ],
+          },
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", loadQuiz);
+
+      const video = document.getElementById("video");
+      const playPauseButton = document.getElementById("playPause");
+      const progress = document.getElementById("progress");
+      const muteButton = document.getElementById("mute");
+      const volumeSlider = document.getElementById("volume");
+      const fullscreenButton = document.getElementById("fullscreen");
+
+      // Play/Pause functionality
+      playPauseButton.addEventListener("click", () => {
+        if (video.paused) {
+          video.play();
+          playPauseButton.textContent = "Pause";
+        } else {
+          video.pause();
+          playPauseButton.textContent = "Play";
+        }
+      });
+
+      // Update progress bar
+      video.addEventListener("timeupdate", () => {
+        progress.value = (video.currentTime / video.duration) * 100;
+      });
+
+      // Seek functionality
+      progress.addEventListener("input", () => {
+        video.currentTime = (progress.value / 100) * video.duration;
+      });
+
+      // Mute/Unmute functionality
+      muteButton.addEventListener("click", () => {
+        video.muted = !video.muted;
+        muteButton.textContent = video.muted ? "Unmute" : "Mute";
+      });
+
+      // Adjust volume
+      volumeSlider.addEventListener("input", () => {
+        video.volume = volumeSlider.value;
+      });
+
+      // Fullscreen functionality
+      fullscreenButton.addEventListener("click", () => {
+        if (video.requestFullscreen) {
+          video.requestFullscreen();
+        } else if (video.webkitRequestFullscreen) {
+          video.webkitRequestFullscreen();
+        } else if (video.msRequestFullscreen) {
+          video.msRequestFullscreen();
+        }
+      });
+    </script>
+  </body>
+</html>

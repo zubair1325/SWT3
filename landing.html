@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learner</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="landing.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="page1">
+        <div class="page1_nav">
+          <div class="page1_nav_left">
+            <a href="#"><h1>Learner</h1></a>
+            <a href="#">Home</a>
+            <a href="http://127.0.0.1:5500/menu.html">Catagories</a>
+          </div>
+          <div class="page1_nav_right">
+            <a href="http://127.0.0.1:5500/login.html"
+              ><button type="button" class="btn btn-outline-secondary">
+                Join US
+              </button></a
+            >
+            <a href="http://127.0.0.1:5500/old_login.html"
+              ><button type="button" class="btn btn-outline-secondary">
+                Login
+              </button></a
+            >
+          </div>
+        </div>
+        <div class="page1_mid">
+          <div class="page1_mid_left">
+            <img src="/ass/1.png" alt="" />
+          </div>
+          <div class="page1_mid_right">
+            <h3>Enhance Your <br />Potential</h3>
+            <p>
+              We make learning engaging & effective,<br />so that you are ready
+              to achieve your goals
+            </p>
+            <p>1.5 Million+ Learner | 20+ Countries | 300+ Teachers</p>
+            <button type="button" class="btn btn-secondary">Learn With</button>
+          </div>
+        </div>
+        <p class="brod">A broad selection of courses</p>
+        <div class="page1_course">
+          <div class="page1_course_detail">
+            <div class="page1_course_detail_mid">
+              <div class="container mt-4">
+                <div class="page1_course_nav mb-4">
+                  <a onclick="loadCourses('Python')">Python</a>
+                  <a onclick="loadCourses('Excel')">Excel</a>
+                  <a onclick="loadCourses('Web Development')"
+                    >Web Development</a
+                  >
+                  <a onclick="loadCourses('JavaScript')">JavaScript</a>
+                  <a onclick="loadCourses('Data Science')">Data Science</a>
+                  <a onclick="loadCourses('Amazon AWS')">Amazon AWS</a>
+                </div>
+
+                <div class="row" id="course-container">
+                  <!-- Courses will be dynamically loaded here -->
+                </div>
+              </div>
+
+              <!-- Modal for Course Details -->
+              <div
+                class="modal fade"
+                id="detailsModal"
+                tabindex="-1"
+                aria-labelledby="detailsModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="detailsModalLabel">
+                        Course Details
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                      <!-- Dynamic course details will be loaded here -->
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal for Details -->
+              <div
+                class="modal fade"
+                id="detailsModal"
+                tabindex="-1"
+                aria-labelledby="detailsModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="detailsModalLabel">
+                        Course Details
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal for Card 2 Details -->
+              <div
+                class="modal fade"
+                id="detailsModal"
+                tabindex="-1"
+                aria-labelledby="detailsModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="detailsModalLabel">
+                        The Complete Python Course
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Updated November 2024</p>
+                      <p>26.5 total hours | All Levels | Subtitles</p>
+                      <ul>
+                        <li>
+                          Course Fully Updated: Dive into Python basics,
+                          advanced concepts, and real-world projects.
+                        </li>
+                        <li>
+                          Mastering Python for Data Science: Learn Python for
+                          data manipulation, visualization, and analysis.
+                        </li>
+                        <li>
+                          Advanced Python Skills: Develop automation scripts,
+                          web applications, and much more.
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- --------------------- -->
+              <div class="container my-5">
+                <!-- Student Testimonials -->
+                <h3 class="text-center mb-4">Millions of Happy Students</h3>
+                <div class="row">
+                  <div class="col-md-4 mb-4">
+                    <div class="student-card">
+                      <img src="/ass/4.avif" alt="Alex" />
+                      <h5>Alex</h5>
+                      <p>
+                        Learning coding is like learning a new language. If you
+                        get the right teacher, you can learn it.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <div class="student-card">
+                      <img src="/ass/2.avif" alt="John" />
+                      <h5>John</h5>
+                      <p>
+                        Learning coding is like learning a new language. If you
+                        get the right teacher, you can learn it.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <div class="student-card">
+                      <img src="/ass/3.avif" alt="Anika" />
+                      <h5>Anika</h5>
+                      <p>
+                        Learning coding is like learning a new language. If you
+                        get the right teacher, you can learn it.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page1_course_detail_btm">
+              <div class="container mt-4">
+                <h2 class="mb-4">Learners are viewing</h2>
+
+                <!-- Card Carousel -->
+                <div class="card-carousel">
+                  <!-- Course Card 1 -->
+                  <div class="card">
+                    <img
+                      src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20210215160315/FREE-Python-Course-For-Beginners.png"
+                      class="card-img-top"
+                      alt="Course 1"
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        Mastering Python: Complete Course for Beginners
+                      </h5>
+                      <p class="card-text">
+                        Md. Rahim Uddin, Software Engineer
+                      </p>
+                      <p class="text-warning mb-1">★ 4.8 (12,500)</p>
+                      <p class="fw-bold">$69.99</p>
+                      <span class="bestseller-badge">Bestseller</span>
+                    </div>
+                  </div>
+
+                  <!-- Course Card 2 -->
+                  <div class="card">
+                    <img
+                      src="https://www.classcentral.com/report/wp-content/uploads/2022/04/BCG-Web-Development-NEW-Banner.png"
+                      class="card-img-top"
+                      alt="Course 2"
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">Web Development Bootcamp 2024</h5>
+                      <p class="card-text">
+                        Shamima Akter, Full Stack Developer
+                      </p>
+                      <p class="text-warning mb-1">★ 4.7 (9,800)</p>
+                      <p class="fw-bold">$74.99</p>
+                      <span class="bestseller-badge">Bestseller</span>
+                    </div>
+                  </div>
+
+                  <!-- Course Card 3 -->
+                  <div class="card">
+                    <img
+                      src="https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Cloud-Practitioner_badge.634f8a21af2e0e956ed8905a72366146ba22b74c.png"
+                      class="card-img-top"
+                      alt="Course 3"
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        AWS Cloud Practitioner Certification
+                      </h5>
+                      <p class="card-text">Farhan Kabir, Cloud Specialist</p>
+                      <p class="text-warning mb-1">★ 4.9 (7,350)</p>
+                      <p class="fw-bold">$89.99</p>
+                      <span class="bestseller-badge">Bestseller</span>
+                    </div>
+                  </div>
+
+                  <!-- Course Card 4 -->
+                  <div class="card">
+                    <img
+                      src="https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Solutions-Architect-Professional_badge.69d82ff1b2861e1089539ebba906c70b011b928a.png"
+                      class="card-img-top"
+                      alt="Course 4"
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        Certified Solutions Architect - AWS
+                      </h5>
+                      <p class="card-text">Nazia Alam, DevOps Engineer</p>
+                      <p class="text-warning mb-1">★ 4.8 (6,200)</p>
+                      <p class="fw-bold">$79.99</p>
+                      <span class="bestseller-badge">Bestseller</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page1_course_plan">
+          <div class="container py-5">
+            <h2 class="text-center mb-5">Choose the Right Plan</h2>
+
+            <div class="row g-4">
+              <!-- Starter Plan -->
+              <div class="col-md-4">
+                <div class="p-4 pricing-card">
+                  <h3 class="plan-heading">Starter Plan</h3>
+                  <p class="text-muted">For individuals</p>
+                  <h4 class="fw-bold">$10.00 per month</h4>
+                  <p class="text-muted">Billed monthly. Cancel anytime.</p>
+                  <button class="btn btn-plan w-100 mb-3">Try it Free →</button>
+                  <ul class="list-unstyled">
+                    <li>✔ Access to 10,000+ courses</li>
+                    <li>✔ Certification prep</li>
+                    <li>✔ Personalized recommendations</li>
+                    <li>✔ AI-powered exercises</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Business Plan -->
+              <div class="col-md-4">
+                <div class="p-4 pricing-card">
+                  <h3 class="plan-heading">Business Plan</h3>
+                  <p class="text-muted">For teams</p>
+                  <h4 class="fw-bold">$25.00 per user/month</h4>
+                  <p class="text-muted">Billed annually. Cancel anytime.</p>
+                  <button class="btn btn-plan w-100 mb-3">Try it Free →</button>
+                  <ul class="list-unstyled">
+                    <li>✔ Access to 15,000+ courses</li>
+                    <li>✔ Certification prep</li>
+                    <li>✔ Team analytics & reports</li>
+                    <li>✔ Goal-based recommendations</li>
+                    <li>✔ AI-powered coding solutions</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Premium Plan -->
+              <div class="col-md-4">
+                <div class="p-4 pricing-card">
+                  <h3 class="plan-heading">Premium Plan</h3>
+                  <p class="text-muted">For organizations</p>
+                  <h4 class="fw-bold">Contact us for pricing</h4>
+                  <button class="btn btn-plan w-100 mb-3">
+                    Request a Demo →
+                  </button>
+                  <ul class="list-unstyled">
+                    <li>✔ Access to 25,000+ courses</li>
+                    <li>✔ Advanced analytics & insights</li>
+                    <li>✔ Dedicated support team</li>
+                    <li>✔ Multilingual course content</li>
+                    <li>✔ Customizable training materials</li>
+                    <li>✔ AI-powered assessments</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page1_fotter">
+          <footer>
+            <div class="footer-section">
+              <h3>Learner</h3>
+              <a href="#">Learner Business</a>
+              <a href="#">Teach on Learner</a>
+              <a href="#">About Us</a>
+              <a href="#">Contact Us</a>
+            </div>
+            <div class="footer-section">
+              <a href="#">Get the App</a>
+              <a href="#">Careers</a>
+              <a href="#">Investors</a>
+              <a href="#">Help and Support</a>
+            </div>
+            <div class="footer-section">
+              <a href="#">Report</a>
+              <a href="#">Terms</a>
+              <a href="#">Privacy and Policy</a>
+            </div>
+            <div class="footer-right">
+              <div class="footer-language">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/44/44638.png"
+                  alt="Globe Icon"
+                />
+                <span>English</span>
+              </div>
+              <div class="footer-bottom">&copy;2024 learner.Inc</div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+      integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+      integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="landing.js"></script>
+  </body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Courses</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .search-bar {
+        width: 300px;
+      }
+      .icon {
+        font-size: 1.5rem;
+        margin-left: 15px;
+      }
+      .cart-icon {
+        color: #e74c3c;
+      }
+      .notification-icon {
+        color: #000;
+      }
+      .profile-icon {
+        color: #000;
+      }
+      .profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      .category-btn,
+      .filter-btn {
+        cursor: pointer;
+        margin-right: 10px;
+        font-weight: bold;
+        color: #007bff;
+      }
+      .category-btn:hover,
+      .filter-btn:hover {
+        text-decoration: underline;
+      }
+      .course-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: opacity 0.5s ease-in-out;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      .hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .card-img-top {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        object-fit: cover;
+        height: 150px;
+      }
+      #courseContainer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+      .card-body {
+        text-align: center;
+      }
+      h3 {
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #343a40;
+      }
+
+      footer {
+        background-color: #000;
+        color: #fff;
+        padding: 2rem 5vw;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        font-size: 0.875rem;
+      }
+      .footer-section {
+        margin: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+      }
+      .footer-section a {
+        color: #fff;
+        text-decoration: none;
+      }
+      .footer-section a:hover {
+        text-decoration: underline;
+      }
+      .footer-right {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+      }
+      .footer-language {
+        display: flex;
+        align-items: center;
+        border: 1px solid #fff;
+        padding: 0.3125rem 0.625rem;
+        border-radius: 0.3125rem;
+        width: fit-content;
+        cursor: pointer;
+      }
+      .footer-language img {
+        width: 1rem;
+        margin-right: 0.5rem;
+      }
+      .footer-bottom {
+        margin-top: 1.25rem;
+        font-size: 0.75rem;
+        text-align: center;
+        width: 100%;
+      }
+
+      @media (max-width: 1024px) {
+        footer {
+          flex-direction: column;
+          padding: 2rem 4vw;
+          text-align: center;
+        }
+        .footer-section,
+        .footer-right {
+          text-align: center;
+        }
+        .footer-right {
+          margin-top: 1.25rem;
+        }
+        .footer-language {
+          margin: 0 auto;
+        }
+      }
+
+      @media (max-width: 768px) {
+        footer {
+          padding: 2rem 3vw;
+        }
+      }
+
+      @media (max-width: 480px) {
+        footer {
+          font-size: 0.75rem;
+          padding: 1.5rem 2vw;
+        }
+        .footer-section,
+        .footer-right {
+          margin: 0.5rem 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-light bg-light px-3">
+      <div class="container-fluid d-flex align-items-center">
+        <span class="navbar-brand mb-0 h1">Learners</span>
+        <div class="d-flex align-items-center">
+          <input
+            type="text"
+            class="form-control search-bar"
+            placeholder="Search"
+          />
+          <i class="icon fas fa-search"></i>
+        </div>
+        <div class="d-flex align-items-center">
+          <i class="icon cart-icon fa fa-shopping-cart"></i>
+          <i class="icon notification-icon fa fa-bell"></i>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS3WjCVZMEj4Cd7vhj6_vymDT2D40IrsoYLQ&s"
+            alt="Profile"
+            class="profile-img ms-2"
+          />
+        </div>
+      </div>
+    </nav>
+
+    <!-- Course Section -->
+    <div class="container mt-4">
+      <h3 class="text-center">Courses to Get You Started</h3>
+
+      <!-- Categories -->
+      <div class="d-flex justify-content-center mb-3">
+        <span class="category-btn" onclick="filterByCategory('all')">All</span>
+        <span class="category-btn" onclick="filterByCategory('Python')"
+          >Python</span
+        >
+        <span class="category-btn" onclick="filterByCategory('Excel')"
+          >Excel</span
+        >
+        <span class="category-btn" onclick="filterByCategory('Web Development')"
+          >Web Development</span
+        >
+        <span class="category-btn" onclick="filterByCategory('Java')"
+          >Java</span
+        >
+        <span class="category-btn" onclick="filterByCategory('Data Science')"
+          >Data Science</span
+        >
+      </div>
+
+      <!-- Sorting Filters -->
+      <div class="d-flex justify-content-center mb-4">
+        <span class="filter-btn" onclick="filterByType('Most Popular')"
+          >Most Popular</span
+        >
+        <span class="filter-btn" onclick="filterByType('New')">New</span>
+        <span class="filter-btn" onclick="filterByType('Trending')"
+          >Trending</span
+        >
+      </div>
+
+      <!-- Course Cards -->
+      <div id="courseContainer">
+        <!-- Course cards will be dynamically loaded here -->
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="courseModal"
+      tabindex="-1"
+      aria-labelledby="courseModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="courseModalLabel">Course Options</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body text-center">
+            <button class="btn btn-primary me-2" onclick="window.location.href='test.html'">Buy Now</button>
+            <button class="btn btn-secondary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page1_fotter">
+      <footer>
+        <div class="footer-section">
+          <h3>Learner</h3>
+          <a href="#">Learner Business</a>
+          <a href="#">Teach on Learner</a>
+          <a href="#">About Us</a>
+          <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-section">
+          <a href="#">Get the App</a>
+          <a href="#">Careers</a>
+          <a href="#">Investors</a>
+          <a href="#">Help and Support</a>
+        </div>
+        <div class="footer-section">
+          <a href="#">Report</a>
+          <a href="#">Terms</a>
+          <a href="#">Privacy and Policy</a>
+        </div>
+        <div class="footer-right">
+          <div class="footer-language">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/44/44638.png"
+              alt="Globe Icon"
+            />
+            <span>English</span>
+          </div>
+          <div class="footer-bottom">&copy;2024 learner.Inc</div>
+        </div>
+      </footer>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Course Data
+      const courses = [
+        {
+          title: "Python Training",
+          category: "Python",
+          type: "Most Popular",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS3WjCVZMEj4Cd7vhj6_vymDT2D40IrsoYLQ&s",
+        },
+        {
+          title: "Excel for Beginners",
+          category: "Excel",
+          type: "New",
+          image: "https://i.ytimg.com/vi/wbJcJCkBcMg/maxresdefault.jpg",
+        },
+        {
+          title: "Web Development Bootcamp",
+          category: "Web Development",
+          type: "Trending",
+          image: "https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:705/https://www.filepicker.io/api/file/FSIjaoI2QtKWZL65cogd",
+        },
+        {
+          title: "Java Programming",
+          category: "Java",
+          type: "Most Popular",
+          image: "https://img-c.udemycdn.com/course/480x270/6150997_dd97_2.jpg",
+        },
+        {
+          title: "Advanced Data Science",
+          category: "Data Science",
+          type: "Trending",
+          image: "https://www.cromacampus.com/public/uploads/Blog/2024/06/week_1/The-Data-Science-Course-Complete-Data-Science-Bootcamp-2024.jpg",
+        },
+        {
+          title: "Python for Data Analysis",
+          category: "Python",
+          type: "New",
+          image: "https://i.ytimg.com/vi/Q9Sq7dgav2c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAY53y7l5lq1uuALKREwKQ1HPU2hA",
+        },
+        {
+          title: "Java Development",
+          category: "Java",
+          type: "New",
+          image: "https://lset.uk/wp-content/uploads/2021/04/Java-bootcamp-sec-img-min.jpg",
+        },
+        {
+          title: "Excel Advanced Techniques",
+          category: "Excel",
+          type: "Trending",
+          image: "https://i.ytimg.com/vi/arJBUarj8u8/maxresdefault.jpg",
+        },
+      ];
+
+      const courseContainer = document.getElementById("courseContainer");
+      let currentCategory = "all";
+      let currentType = "all";
+
+      // Function to Display Courses
+      function displayCourses(filteredCourses) {
+        courseContainer.innerHTML = ""; // Clear existing content
+        filteredCourses.forEach((course) => {
+          const card = document.createElement("div");
+          card.className = "course-card";
+          card.style.flex = "0 1 calc(22% - 20px)";
+          card.innerHTML = `
+                    <div class="card h-100" onclick="openModal()">
+                        <img src="${course.image}" class="card-img-top" alt="${course.title}">
+                        <div class="card-body">
+                            <h5 class="card-title">${course.title}</h5>
+                            <p class="card-text">Category: ${course.category}</p>
+                            <p class="text-muted">${course.type}</p>
+                        </div>
+                    </div>
+                `;
+          courseContainer.appendChild(card);
+        });
+      }
+
+      // Open Modal
+      function openModal() {
+        const modal = new bootstrap.Modal(
+          document.getElementById("courseModal")
+        );
+        modal.show();
+      }
+
+      // Filter by Category
+      function filterByCategory(category) {
+        currentCategory = category;
+        filterAndDisplay();
+      }
+
+      // Filter by Type
+      function filterByType(type) {
+        currentType = type;
+        filterAndDisplay();
+      }
+
+      // Combined Filter Logic
+      function filterAndDisplay() {
+        let filteredCourses = courses;
+        if (currentCategory !== "all") {
+          filteredCourses = filteredCourses.filter(
+            (course) => course.category === currentCategory
+          );
+        }
+        if (currentType !== "all") {
+          filteredCourses = filteredCourses.filter(
+            (course) => course.type === currentType
+          );
+        }
+        displayCourses(filteredCourses);
+      }
+
+      // Initial Display
+      displayCourses(courses);
+    </script>
+  </body>
+</html>
